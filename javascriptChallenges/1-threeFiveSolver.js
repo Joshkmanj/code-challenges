@@ -38,7 +38,7 @@ function solution(number) {
   if (number < 0) {
     // Warn the user that the number is negative
     console.log(`The number (${number}) you chose is negative!`);
-  } 
+  }
 
   // This else clause isn't necessary, but it makes the logic below more readable and organized
   else {
