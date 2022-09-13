@@ -12,3 +12,25 @@ console.log('pangramChecker Loaded in!');
 
 // "The quick brown fox jumps over the lazy dog"
 
+function isPangram(string) {
+  
+  // Initialize the Alphabet to compare against
+  let alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+  let lowerCaseString = string.toLowerCase()
+
+  // Loop through the entire alphabet
+  for (const letter of alphabet) {
+  
+      // Search to see if that letter is present
+      if (lowerCaseString.indexOf(letter) < 0) {
+    
+          // If the letter is missing, return false
+          console.log(`${lowerCaseString} is NOT a panagram!!`);
+          return false;
+        }
+      }
+    
+      // If the entire alphabet is run through and all letters are present, return true
+      console.log(`${lowerCaseString} IS a panagram!!`);
+      return true;
+    }
