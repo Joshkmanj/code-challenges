@@ -51,34 +51,45 @@ function encrypt(text, n) {
 
 
   function decrypt(encryptedText, n) {
-    let decryptedText = '';
-
-    let remainderCount = encryptedText.length % 2;
-  
+    let encryptedArray = encryptedText.split("");
+    console.log("encryptedArray=", encryptedArray);
+    
+    let remainderCount = encryptedArray.length % 2;
+    console.log("remainderCount=", remainderCount);
+    
     // While loop is used to iterate the encryption logic for as many times as the n value states.
   //  while (n > 0) {
-
-    // let oddNum = '';
-    // let evenNum = '';
   
 
-    let oddNumberCount = ((encryptedText.length - remainderCount) / 2);
-    // console.log(`remainderCount=${remainderCount}`);
-    // console.log(`oddNumberCount=${oddNumberCount}`);
+    let midpoint = ((encryptedArray.length - remainderCount) / 2);
+    console.log("midpoint=", midpoint);
     
-    let oddNum = encryptedText.slice(0,oddNumberCount)
-    let evenNum = encryptedText.slice(0,oddNumberCount)
+    let oddNum = encryptedText.slice(0,midpoint)
+    let evenNum = encryptedText.slice(midpoint)
+    
+    console.log("oddNum=", oddNum);
+    console.log("evenNum=", evenNum);
+
+
+    // let evenNum = encryptedArray[0,2]
+    // let oddNum = encryptedArray[0,2]
+
+    // let oddNum = ['B','D','F']
+    // let evenNum = ['A','C','E']
     // console.log('decrypted text after slicing:', decryptedText);
 
-    for (let i = 0; i <= encryptedText.length; i++) {
-      if (i%2==0) {
-        decryptedText.push( evenNum.shift() );
-      }
-      else if (i%2==1) {
-        decryptedText.push( oddNum.shift() );
-      }
+    // for (let i = 0; i <= encryptedArray.length; i++) {
+    //   if (i%2==0) {
+    //     // decryptedText.push();
+    //     console.log(evenNum.splice(0,1));
+    //   }
+    //   else if (i%2==1) {
+    //     // decryptedText.push();
+    //     // oddNum.splice(0,1) 
+    //     console.log(oddNum.splice(0,1));
+    //   }
       
-    }
+    // }
   
     // The odd and even numbered text is concatenated
     
@@ -87,7 +98,7 @@ function encrypt(text, n) {
     // }
   
     // Once all iterations are complete, it returns the encrypted value
-    return decryptedText;
+    return oddNum;
     // return decryptedText;
   }
   
@@ -125,7 +136,7 @@ function encrypt(text, n) {
   console.log('-----------begin decryption---------');
 
   console.log(decrypt("BDAC", 1));
-  console.log(decrypt("BDACE", 1));
-  console.log(decrypt("BDFACE", 1));
-  console.log(decrypt("BDFACEG", 1));
+  // console.log(decrypt("BDACE", 1));
+  // console.log(decrypt("BDFACE", 1));
+  // console.log(decrypt("BDFACEG", 1));
   // console.log(`Test: "${decrypt("135024", 1)}"="012345"`);
