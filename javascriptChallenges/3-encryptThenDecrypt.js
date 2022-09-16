@@ -20,127 +20,131 @@ console.log('encryptThenDecrypt Loaded in!');
 // If the string S is an empty value or the integer N is not positive, return the first argument without changes.
 
 function encrypt(text, n) {
-  // A variable is initiated to symbolize the separation of the values of the text and the encrypted text.
-  let encryptedText = text;
-  // While loop is used to iterate the encryption logic for as many times as the n value states.
-  while (n > 0) {
-  let oddNum = '';
-  let evenNum = '';
-  
-  // This loop selects all the odd numbered text 
-  for (let i=1; i<=encryptedText.length - 1; i+=2){
-    oddNum += encryptedText[i];
+  if (!text || !(Number.isSafeInteger(n)) || n <= 0) {
+    console.warn(`Bad input, encryption stopped`);
+    return text;
   }
-  // This loop selects all the even numbered text 
-  for (let i=0; i<=encryptedText.length - 1; i+=2){
-    evenNum += encryptedText[i];
+  let encryptedText = text; // A variable is initiated to symbolize the separation of the values of the text and the encrypted text.
+  
+  while (n > 0) { // While loop is used to iterate the encryption logic for as many times as the n value states.
+    let oddNum = '';
+    let evenNum = '';
+
+    for (let i = 1; i < encryptedText.length; i += 2) { // This loop selects all the odd numbered text 
+      oddNum += encryptedText[i];
+    }
+    for (let i = 0; i < encryptedText.length; i += 2) { // This loop selects all the even numbered text 
+      evenNum += encryptedText[i];
+    }
+
+    encryptedText = oddNum + evenNum; // The odd and even numbered text is concatenated
+
+    n -= 1; // This increments the while condition to either the next iteration or to completion 
   }
-  
-  // The odd and even numbered text is concatenated
-  encryptedText = oddNum + evenNum
-  
-  // This increments the while condition to either the next iteration or to completion 
-  n-=1;
+
+  return encryptedText; // Once all iterations are complete, it returns the encrypted value
+}
+
+
+
+
+function decrypt(encryptedText, n) {
+
+  if (!encryptedText || !(Number.isSafeInteger(n)) || n <= 0) {
+    console.warn(`Bad input, decryption stopped`);
+    return encryptedText
   }
-  
-  // Once all iterations are complete, it returns the encrypted value
-  return encryptedText;
-  }
-  
 
+  let encryptedArray = encryptedText.split('');
+  let remainderCount = encryptedArray.length % 2;
+  let midpoint = ((encryptedArray.length - remainderCount) / 2);
 
-
-  function decrypt(encryptedText, n) {
-console.log('starting n is:', n);
-
-let encryptedArray = encryptedText.split('');
-console.log("encryptedArray=", encryptedArray);
-
-let remainderCount = encryptedArray.length % 2;
-console.log("remainderCount=", remainderCount);
-
-let midpoint = ((encryptedArray.length - remainderCount) / 2);
-console.log("midpoint=", midpoint);
-
-
-// While loop is used to iterate the encryption logic for as many times as the n value states.
-while (n > 0) {
-     console.log('n is now --->', n);
-
-    
-    let oddNum = encryptedArray.slice(0,midpoint)
+  while (n > 0) { // While loop is used to iterate the encryption logic for as many times as the n value states.
+    let oddNum = encryptedArray.slice(0, midpoint)
     let evenNum = encryptedArray.slice(midpoint)
-    
-    console.log("oddNum=", oddNum);
-    console.log("evenNum=", evenNum);
-
 
     for (let i = 0; i < encryptedArray.length; i++) {
-      if (i%2==0) {
-        console.log(`evenNum ${evenNum[0]} is added`);
-        encryptedArray[i] = evenNum.shift();
+      if (i % 2 == 0) {
+        encryptedArray[i] = evenNum.shift(); // The next value removed from the stack of even values replaces 
+        // the current value of the encrypted array.
+      } else if (i % 2 == 1) {
+        encryptedArray[i] = oddNum.shift(); // The next value removed from the stack of odd values replaces 
+        // the current value of the encrypted array.
       }
-      else if (i%2==1) {
-
-        console.log(`oddNum ${oddNum[0]} is added`);
-        encryptedArray[i] = oddNum.shift();
-      }      
     }
-  
-
-    
-    // This increments the "while" condition to either the next iteration or to completion.
-    n-=1;
-    }
-
-    // This converts the array back into a string.
-    let decryptedText = encryptedArray.join('')
-  
-    // Once all iterations are complete, it returns the encrypted value.
-    return decryptedText;
+    n -= 1; // This increments the "while" condition to either the next iteration or to completion.
   }
-  
- 
- 
-  // ----------------------------------------< Tests >----------------------------------------
-  // console.log(`Test: "${encrypt("This is a test!", 0)}"="This is a test!"`);
-  // console.log(`Test: "${encrypt("", 2)}"=""`);
-  // console.log(`Test: "${encrypt("0123", 0)}"="0123"`);
-  // console.log(`Test: "${encrypt("0123", 1)}"="1302"`);
-  // console.log(`Test: "${encrypt("0123", 2)}"="3210"`);
-  // console.log(`Test: "${encrypt("0123", 3)}"="2031"`);
-  // console.log(`Test: "${encrypt("0123", 4)}"="2031"`);
-  // console.log(`Test: "${encrypt("0123", 5)}"="1302"`);
-  // console.log(`Test: "${encrypt("01234", 0)}"="01234"`);
-  // console.log(`Test: "${encrypt("01234", 1)}"="13024"`);
-  // console.log(`Test: "${encrypt("01234", 2)}"="32104"`);
-  // console.log(`Test: "${encrypt("01234", 3)}"="20314"`);
-  // console.log(`Test: "${encrypt("01234", 4)}"="01234"`);
-  // console.log(`Test: "${encrypt("01234", 5)}"="13024"`);
-  // console.log(`Test: "${encrypt("012345", 0)}"="012345"`);
-  // console.log(`Test: "${encrypt("012345", 1)}"="135024"`);
-  // console.log(`Test: "${encrypt("012345", 2)}"="304152"`);
-  // console.log(`Test: "${encrypt("012345", 3)}"="012345"`);
-  // console.log(`Test: "${encrypt("012345", 4)}"="135024"`);
-  // console.log(`Test: "${encrypt("012345", 5)}"="304152"`);
-  // console.log(`Test: "${encrypt("This is a test!", 1)}"="hsi  etTi sats!"`);
-  // console.log(`Test: "${encrypt("This is a test!", 2)}"="s eT ashi tist!"`);
-  // console.log(`Test: "${encrypt("This is a test!", 3)}"=" Tah itse sits!"`);
-  // console.log(`Test: "${encrypt("This is a test!", 4)}"="This is a test!"`);
-  // console.log(`Test: "${encrypt("This is a test!", -1)}"="This is a test!"`);
-  // console.log(`Test: "${encrypt("This kata is very interesting!", 1)}"="hskt svr neetn!Ti aai eyitrsig"`);
-  
-  
-  console.log('-----------begin decryption---------');
-  
-  // console.log(decrypt("BDAC", 1));
-  // console.log(decrypt("BDACE", 1));
-  // console.log(decrypt("BDFACE", 1));
-  // console.log(decrypt("BDFACEG", 1));
-  // console.log(`Test: "${decrypt("135024", 1)}"="012345"`);
-  
-  console.log('-----------Encryption and decryption---------');
+
+  let decryptedText = encryptedArray.join('') // This converts the array back into a string.
+
+  return decryptedText; // Once all iterations are complete, it returns the encrypted value.
+}
 
 
-  console.log(`Test: "${encrypt("This is a test!", 3)}"=" Tah itse sits!"`);
-  console.log(`Test: "${decrypt(" Tah itse sits!", 3)}"="This is a test!"`);
+
+
+
+
+// console.log(decrypt("BDAC", 1));
+// console.log(decrypt("BDACE", 1));
+// console.log(decrypt("BDFACE", 1));
+// console.log(decrypt("BDFACEG", 1));
+// console.log(`Test: "${decrypt("135024", 1)}"="012345"`);
+
+
+
+
+function encryptDecrypt(startingString, iterations) {
+  console.log(`now encrypting: "${startingString}" (${iterations}) times!`);
+  let encryptedString = encrypt(startingString, iterations)
+
+  // console.log(`encrypted value: "${encryptedString}"`);
+
+  console.log(`now decrypting: "${encryptedString}" (${iterations}) times!`);
+  let decryptedString = decrypt(encryptedString, iterations)
+
+  return decryptedString;
+}
+
+//----------------------------------------< Tests >----------------------------------------
+// console.log(`Test: "${encryptDecrypt("This is a test!", 0)}"="This is a test!"`);
+// console.log(`Test: "${encryptDecrypt("", 2)}"=""`);
+// console.log(`Test: "${encryptDecrypt("0123", 0)}"="0123"`);
+// console.log(`Test: "${encryptDecrypt("0123", 1)}"="0123"`);
+// console.log(`Test: "${encryptDecrypt("0123", 2)}"="0123"`);
+// console.log(`Test: "${encryptDecrypt("0123", 3)}"="0123"`);
+// console.log(`Test: "${encryptDecrypt("0123", 4)}"="0123"`);
+// console.log(`Test: "${encryptDecrypt("0123", 5)}"="0123"`);
+// console.log(`Test: "${encryptDecrypt("01234", 0)}"="01234"`);
+// console.log(`Test: "${encryptDecrypt("01234", 1)}"="01234"`);
+// console.log(`Test: "${encryptDecrypt("01234", 2)}"="01234"`);
+// console.log(`Test: "${encryptDecrypt("01234", 3)}"="01234"`);
+// console.log(`Test: "${encryptDecrypt("01234", 4)}"="01234"`);
+// console.log(`Test: "${encryptDecrypt("01234", 5)}"="01234"`);
+// console.log(`Test: "${encryptDecrypt("012345", 0)}"="012345"`);
+// console.log(`Test: "${encryptDecrypt("012345", 1)}"="012345"`);
+// console.log(`Test: "${encryptDecrypt("012345", 2)}"="012345"`);
+// console.log(`Test: "${encryptDecrypt("012345", 3)}"="012345"`);
+// console.log(`Test: "${encryptDecrypt("012345", 4)}"="012345"`);
+// console.log(`Test: "${encryptDecrypt("012345", 5)}"="012345"`);
+// console.log(`Test: "${encryptDecrypt("This is a test!", 1)}"="This is a test!"`);
+// console.log(`Test: "${encryptDecrypt("This is a test!", 2)}"="This is a test!"`);
+// console.log(`Test: "${encryptDecrypt("This is a test!", 3)}"="This is a test!"`);
+// console.log(`Test: "${decrypt( null,0)}"=null`);
+// console.log(`Test: "${decrypt( null,0)}"=null`);
+console.log(`Test: "${encryptDecrypt('test', undefined)}"='test'`);
+console.log(`Test: "${encryptDecrypt(undefined, 2)}"=undefined`);
+console.log(`Test: "${encryptDecrypt(undefined)}"=undefined`);
+console.log(`Test: "${encryptDecrypt()}"=undefined`);
+console.log(`Test: "${encryptDecrypt(NaN, 2)}"=NaN`);
+console.log(`Test: "${encryptDecrypt('test', NaN)}"='test'`);
+console.log(`Test: "${encryptDecrypt('', 1)}"=''`);
+console.log(`Test: "${encryptDecrypt('asdf', '2')}"='asdf'`);
+console.log(`Test: "${encryptDecrypt('test', 'ten')}"='test'`);
+console.log(`Test: "${encryptDecrypt('test', .5)}"='test'`);
+console.log(`Test: "${encryptDecrypt('test', -1)}"='test'`);
+console.log(`Test: "${encryptDecrypt('test', 0)}"='test'`);
+console.log(`Test: "${encryptDecrypt(null, 2)}"=null`);
+  // console.log(`Test: "${encryptDecrypt("This is a test!", 4)}"="This is a test!"`);
+  // console.log(`Test: "${encryptDecrypt("This is a test!", -1)}"="This is a test!"`);
+  // console.log(`Test: "${encryptDecrypt("This kata is very interesting!", 1)}"="This kata is very interesting!"`);
