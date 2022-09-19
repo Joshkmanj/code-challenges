@@ -25,20 +25,23 @@ function encrypt(text, n) {
     return text;
   }
   let encryptedText = text; // A variable is initiated to symbolize the separation of the values of the text and the encrypted text.
-  
+
   while (n > 0) { // While loop is used to iterate the encryption logic for as many times as the n value states.
     let oddNum = '';
     let evenNum = '';
 
-    for (let i = 1; i < encryptedText.length; i += 2) { // This loop selects all the odd numbered text 
-      oddNum += encryptedText[i];
-    }
-    for (let i = 0; i < encryptedText.length; i += 2) { // This loop selects all the even numbered text 
-      evenNum += encryptedText[i];
+    for (let i = 0; i < encryptedText.length; i++) { // This loops through all values
+
+      if (i % 2 == 0) { // This selects all the even numbered text 
+        evenNum += encryptedText[i];
+
+      } else { // This selects all the odd numbered text 
+        oddNum += encryptedText[i];
+
+      }
     }
 
     encryptedText = oddNum + evenNum; // The odd and even numbered text is concatenated
-
     n -= 1; // This increments the while condition to either the next iteration or to completion 
   }
 
@@ -52,7 +55,7 @@ function decrypt(encryptedText, n) {
 
   if (!encryptedText || !(Number.isSafeInteger(n)) || n <= 0) {
     console.warn(`Bad input, decryption stopped`);
-    return encryptedText
+    return encryptedText;
   }
 
   let encryptedArray = encryptedText.split('');
@@ -60,14 +63,14 @@ function decrypt(encryptedText, n) {
   let midpoint = ((encryptedArray.length - remainderCount) / 2);
 
   while (n > 0) { // While loop is used to iterate the encryption logic for as many times as the n value states.
-    let oddNum = encryptedArray.slice(0, midpoint)
-    let evenNum = encryptedArray.slice(midpoint)
+    let oddNum = encryptedArray.slice(0, midpoint);
+    let evenNum = encryptedArray.slice(midpoint);
 
     for (let i = 0; i < encryptedArray.length; i++) {
       if (i % 2 == 0) {
         encryptedArray[i] = evenNum.shift(); // The next value removed from the stack of even values replaces 
         // the current value of the encrypted array.
-      } else if (i % 2 == 1) {
+      } else {
         encryptedArray[i] = oddNum.shift(); // The next value removed from the stack of odd values replaces 
         // the current value of the encrypted array.
       }
@@ -75,7 +78,7 @@ function decrypt(encryptedText, n) {
     n -= 1; // This increments the "while" condition to either the next iteration or to completion.
   }
 
-  let decryptedText = encryptedArray.join('') // This converts the array back into a string.
+  let decryptedText = encryptedArray.join(''); // This converts the array back into a string.
 
   return decryptedText; // Once all iterations are complete, it returns the encrypted value.
 }
@@ -97,8 +100,6 @@ function decrypt(encryptedText, n) {
 function encryptDecrypt(startingString, iterations) {
   console.log(`now encrypting: "${startingString}" (${iterations}) times!`);
   let encryptedString = encrypt(startingString, iterations)
-
-  // console.log(`encrypted value: "${encryptedString}"`);
 
   console.log(`now decrypting: "${encryptedString}" (${iterations}) times!`);
   let decryptedString = decrypt(encryptedString, iterations)
