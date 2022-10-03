@@ -20,10 +20,17 @@ function passwordChecker(password) {
   }
 
   for (let i = 0; i < password.length; i++) {
+
+    let char = password[i]
     
-    if ( !hasNumber && !isNaN(password[i])){
+    if ( !isNaN(char)){
       hasNumber = true;
       console.log('has number:', password[i]);
+    }
+    else if(char.toUppercase() === char) {
+      console.log('has uppercase:');
+    } else if(char.toLowercase() === char){
+      
     }
 
   }
