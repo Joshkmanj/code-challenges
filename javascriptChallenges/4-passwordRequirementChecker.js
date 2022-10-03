@@ -20,17 +20,18 @@ function passwordChecker(password) {
   }
 
   for (let i = 0; i < password.length; i++) {
-
-    let char = password[i]
+    let char = password[i];
     
     if ( !isNaN(char)){
       hasNumber = true;
-      console.log('has number:', password[i]);
+      console.log('has number:', char);
     }
-    else if(char.toUppercase() === char) {
-      console.log('has uppercase:');
-    } else if(char.toLowercase() === char){
-      
+    else if(char.toUpperCase() === char) {
+      console.log('has upper case:', char);
+      hasUppercase = true;
+    } else if(char.toLowerCase() === char){
+      console.log('has lower case:', char);
+      hasLowercase = true;
     }
 
   }
@@ -44,5 +45,5 @@ function passwordChecker(password) {
 }
 
 console.log(passwordChecker('1234567'));
-console.log(passwordChecker('12asdf78'));
+console.log(passwordChecker('12asDF78'));
 
