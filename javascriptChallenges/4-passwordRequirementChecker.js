@@ -11,24 +11,25 @@ function passwordChecker(password) {
   let hasNumber = false;
   let hasLowercase = false;
   let hasUppercase = false;
-
-
   
   if(password.length !== 8){
     console.log(`Password ${password} must be at least 8 characters`);
     return false;
   }
 
+
   for (let i = 0; i < password.length; i++) {
+    
     let char = password[i];
     
     if ( !isNaN(char)){
       hasNumber = true;
       console.log('has number:', char);
-    }
-    else if(char.toUpperCase() === char) {
+
+    } else if(char.toUpperCase() === char) {
       console.log('has upper case:', char);
       hasUppercase = true;
+
     } else if(char.toLowerCase() === char){
       console.log('has lower case:', char);
       hasLowercase = true;
@@ -40,10 +41,17 @@ function passwordChecker(password) {
   if (hasNumber && hasLowercase && hasUppercase) { 
     console.log(`Password ${password} is great :)`);
     return true;
+  } else {
+    console.log('Password does not meet requirements');
+    return false;
   }
 
 }
 
 console.log(passwordChecker('1234567'));
+console.log(passwordChecker('12ASDF78'));
+console.log(passwordChecker('12asdf78'));
+console.log(passwordChecker('asdfghjk'));
 console.log(passwordChecker('12asDF78'));
+
 
