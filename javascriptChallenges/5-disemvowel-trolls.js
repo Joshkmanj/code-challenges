@@ -39,7 +39,7 @@ let testComment = 'This website is for losers LOL!';
 
 // ------------------------------< Second Attempt >-----------------------------------
 function disemvowel (comment) {
-  
+
   return comment.replace(/[aeuio]/gi, '');
 }
 // ------------------------------< End Second Attempt >-----------------------------------
