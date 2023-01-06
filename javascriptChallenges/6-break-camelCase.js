@@ -14,9 +14,8 @@ let testThree = 'CamelCasing'
 
 // ----------------------< Loop based solution >-----------------------
 // function solution(string) {
-
 //   let newString = '';
-  
+
 //   for (let i=0 ; i < string.length; i++) {
 //     if ( string[i].toUpperCase() === string[i] && i > 0 && string[(i-1)] != ' ' && string[i] != ' '){
 //       console.log('string[i-1]=', string[i-1]);
@@ -24,17 +23,13 @@ let testThree = 'CamelCasing'
 //     }
 //     newString += string[i];
 //   }
-
 //   return newString;
 // }
 // ----------------------< End Loop based solution >-----------------------
 
-
 // ----------------------< Replacement based solution >-----------------------
 function solution(string) {
   return(string.replace(/([A-Z])/g, ' $1'));
-  string.replace()
-
 }
 // ----------------------< End Replacement based solution >-----------------------
 
