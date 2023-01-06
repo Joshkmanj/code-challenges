@@ -16,24 +16,34 @@ console.log('disemvowelTrolls Loaded in!');
 let testComment = 'This website is for losers LOL!';
 
 
+// ------------------------------< First Attempt >-----------------------------------
+// function disemvowel(meanComment) {
 
-function disemvowel(meanComment) {
-
-  let vowelArray = ['a','e','u','i','o'];
-  let niceComment = '';
+//   let vowelArray = ['a','e','u','i','o'];
+//   let niceComment = '';
 
 
-  for (let i = 0; i < meanComment.length; i++ ){
+//   for (let i = 0; i < meanComment.length; i++ ){
  
-    if( vowelArray.indexOf(meanComment[i].toLowerCase()) < 0 ){
-      niceComment += meanComment[i];
-    }
+//     if( vowelArray.indexOf(meanComment[i].toLowerCase()) < 0 ){
+//       niceComment += meanComment[i];
+//     }
 
-  }
+//   }
 
 
-  return niceComment;
-} 
+//   return niceComment;
+// } 
+// ------------------------------< End First Attempt >-----------------------------------
+
+
+// ------------------------------< Second Attempt >-----------------------------------
+function disemvowel (comment) {
+  
+  return comment.replace(/[aeuio]/gi, '');
+}
+// ------------------------------< End Second Attempt >-----------------------------------
+
 
 
 console.log(disemvowel(testComment));
